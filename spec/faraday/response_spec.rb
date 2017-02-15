@@ -11,7 +11,9 @@ describe Faraday::Response do
     404 => Instagram::NotFound,
     429 => Instagram::TooManyRequests,
     500 => Instagram::InternalServerError,
-    503 => Instagram::ServiceUnavailable
+    502 => Instagram::BadGateway,
+    503 => Instagram::ServiceUnavailable,
+    504 => Instagram::GatewayTimeout
   }.each do |status, exception|
     context "when HTTP status is #{status}" do
 
@@ -24,6 +26,19 @@ describe Faraday::Response do
         expect do
           @client.user_media_feed()
         end.to raise_error(exception)
+      end
+
+      [
+        :http_body,
+        :http_headers,
+        :http_status,
+        :json_body,
+        :method,
+        :request_url
+      ].each do |attribute|
+        it "#{exception.name} should respond to :#{attribute}" do
+          expect(exception.new({})).to respond_to(attribute.to_sym)
+        end
       end
 
     end
