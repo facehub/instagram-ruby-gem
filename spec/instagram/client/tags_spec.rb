@@ -1,7 +1,5 @@
 require File.expand_path('../../../spec_helper', __FILE__)
 
-require 'byebug'
-
 describe Instagram::Client do
   Instagram::Configuration::VALID_FORMATS.each do |format|
     context ".new(:format => '#{format}')" do
