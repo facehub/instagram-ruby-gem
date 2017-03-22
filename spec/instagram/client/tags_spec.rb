@@ -1,5 +1,7 @@
 require File.expand_path('../../../spec_helper', __FILE__)
 
+require 'byebug'
+
 describe Instagram::Client do
   Instagram::Configuration::VALID_FORMATS.each do |format|
     context ".new(:format => '#{format}')" do
@@ -47,6 +49,31 @@ describe Instagram::Client do
           media = @client.tag_recent_media('cat')
           expect(media).to be_a Array
           expect(media.first.user.username).to eq("amandavan")
+        end
+
+      end
+
+      describe ".tag_recent_media_page" do
+
+        before do
+          stub_get("tags/cat/media/recent.#{format}").
+              with(:query => {:access_token => @client.access_token}).
+              to_return(:body => fixture("tag_recent_media.#{format}"), :headers => {:content_type => "application/#{format}; charset=utf-8"})
+        end
+
+        it "should get the correct resource" do
+          @client.tag_recent_media('cat')
+          expect(a_get("tags/cat/media/recent.#{format}").
+              with(:query => {:access_token => @client.access_token})).
+              to have_been_made
+        end
+
+        it "should return the raw of media" do
+          raw = @client.tag_recent_media_page('cat')
+          media = raw['data']
+          expect(raw['pagination']).to_not be nil
+          expect(media).to be_a Array
+          expect(media.first['user']['username']).to eq("amandavan")
         end
 
       end

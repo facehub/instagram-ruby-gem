@@ -38,6 +38,12 @@ module Instagram
         response
       end
 
+      def tag_recent_media_page(id, *args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        response = get("tags/#{id}/media/recent", options, false, true, false)
+        JSON.parse(response.body)
+      end
+
       # Returns a list of tags starting with the given search query
       #
       # @format :json
