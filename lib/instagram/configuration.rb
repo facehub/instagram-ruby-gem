@@ -69,7 +69,7 @@ module Instagram
     DEFAULT_NO_RESPONSE_WRAPPER = false
 
     # The user agent that will be sent to the API endpoint if none is set
-    DEFAULT_USER_AGENT = "Instagram Ruby Gem #{Instagram::VERSION}".freeze
+    DEFAULT_USER_AGENT = "Ruby Gem #{Instagram::VERSION}".freeze
 
     # An array of valid request/response formats
     #
