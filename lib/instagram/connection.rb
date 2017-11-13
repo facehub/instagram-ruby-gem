@@ -8,7 +8,7 @@ module Instagram
 
     def connection(raw=false)
       options = {
-        :headers => { 'Accept-Encoding' => 'none', 'Accept' => "application/#{format}; charset=utf-8", 'User-Agent' => user_agent},
+        :headers => { 'Accept-Encoding' => 'identity', 'Accept' => "application/#{format}; charset=utf-8", 'User-Agent' => user_agent},
         :proxy => proxy,
         :url => endpoint,
       }.merge(connection_options)
