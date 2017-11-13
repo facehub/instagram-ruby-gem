@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'bluecloth', '~> 2.2', '>= 2.2.0'
   s.add_runtime_dependency('faraday', '~> 0')
   s.add_runtime_dependency('faraday_middleware', '~> 0')
-  s.add_runtime_dependency('multi_json', '~> 1.11')
-  s.add_runtime_dependency('hashie',  '~> 3.0')
+  s.add_runtime_dependency('multi_json', '~> 1')
+  s.add_runtime_dependency('hashie',  '~> 3')
   s.authors = ["Shayne Sweeney", "extendi"]
   s.licenses   = ['MIT']
   s.description = %q{A Ruby wrapper for the Instagram REST and Search APIs}
