@@ -6,7 +6,21 @@ module Instagram
   module Request
     # Perform an HTTP GET request
     def get(path, options={}, signature=false, raw=false, unformatted=false, no_response_wrapper=no_response_wrapper(), signed=sign_requests)
-      request(:get, path, options, signature, raw, unformatted, no_response_wrapper, signed)
+      ret = nil
+      ntry = 0
+      max_try = 5
+      begin
+        ntry += 1
+        sleep 1 if ntry > 1
+        ret = request(:get, path, options, signature, raw, unformatted, no_response_wrapper, signed)
+      rescue Zlib::BufError => e
+        retry if ntry < max_try
+        raise e
+      rescue Faraday::ConnectionFailed => e
+        retry if ntry < max_try
+        raise e
+      end
+      ret
     end
 
     # Perform an HTTP POST request
