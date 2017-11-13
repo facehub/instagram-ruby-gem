@@ -67,10 +67,11 @@ describe Instagram::Client do
         end
 
         it "should return the raw of media" do
-          media = @client.tag_recent_media_page('cat')
+          raw = @client.tag_recent_media_page('cat')
+          media = raw['data']
+          expect(raw['pagination']).to_not be nil
           expect(media).to be_a Array
-          expect(media.first['user']['username']).to eq('amandavan')
-          expect(media.pagination).to_not be nil
+          expect(media.first['user']['username']).to eq("amandavan")
         end
 
       end
